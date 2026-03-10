@@ -1,4 +1,4 @@
-const API_KEY = "AIzaSyDnkrdRk3YdkAFe6QO4y-6zembkExG2o04";
+const API_KEY = "AIzaSyAGhGwybCBmpZnx0XXbMwCiOYssg5_5ApY";
 
 async function sendMessage(){
 
@@ -7,10 +7,12 @@ const chatBox = document.getElementById("chatBox");
 
 const userText = input.value;
 
+if(userText.trim()=="") return;
+
 chatBox.innerHTML += "<p><b>Bạn:</b> "+userText+"</p>";
 
 const response = await fetch(
-"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=API_KEY_CUA_THAY",
+"https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=AIzaSyAGhGwybCBmpZnx0XXbMwCiOYssg5_5ApY",
 {
 method:"POST",
 headers:{
@@ -20,7 +22,7 @@ body: JSON.stringify({
 contents:[
 {
 parts:[
-{ text: userText }
+{ text:userText }
 ]
 }
 ]
