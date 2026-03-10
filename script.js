@@ -18,7 +18,7 @@ let response = await fetch("https://api.openai.com/v1/chat/completions",{
 method:"POST",
 headers:{
 "Content-Type":"application/json",
-"Authorization":"Bearer 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"
+"Authorization":"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"
 },
 body:JSON.stringify({
 model:"gpt-4o-mini",
