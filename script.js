@@ -2,35 +2,36 @@ const API_KEY = "AIzaSyAGhGwybCBmpZnx0XXbMwCiOYssg5_5ApY";
 
 async function sendMessage(){
 
-let input = document.getElementById("userInput").value;
-if(!input) return;
+const input = document.getElementById("userInput");
+const chatBox = document.getElementById("chatBox");
 
-let chatBox = document.getElementById("chatBox");
+const userText = input.value;
 
-chatBox.innerHTML += `<div class="user">👨‍🎓 ${input}</div>`;
+chatBox.innerHTML += "<p><b>Bạn:</b> " + userText + "</p>";
 
-document.getElementById("userInput").value="";
-
-let response = await fetch(
-https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent;
+const response = await fetch(
+"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=API_KEY",
 {
 method:"POST",
 headers:{
 "Content-Type":"application/json"
 },
-body:JSON.stringify({
+body: JSON.stringify({
 contents:[{
-parts:[{text:input}]
+parts:[{text:userText}]
 }]
 })
-});
+}
+);
 
-let data = await response.json();
+const data = await response.json();
 
-const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "AI chưa trả lời.";
+console.log(data);
 
-chatBox.innerHTML += `<div class="ai">🤖 ${reply}</div>`;
+const aiReply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "AI đang bận.";
 
-chatBox.scrollTop = chatBox.scrollHeight;
+chatBox.innerHTML += "<p><b>AI:</b> " + aiReply + "</p>";
+
+input.value="";
 
 }
