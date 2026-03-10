@@ -27,7 +27,7 @@ parts:[{text:input}]
 
 let data = await response.json();
 
-let reply = data.candidates[0].content.parts[0].text;
+const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "AI không trả lời";
 
 chatBox.innerHTML += `<div class="ai">🤖 ${reply}</div>`;
 
