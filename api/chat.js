@@ -9,12 +9,14 @@ headers:{
 body:JSON.stringify({
 model:"gpt-4o-mini",
 messages:[
-{role:"user",content:req.body.message}
+{role:"system",content:"Bạn là AI Gia Sư lập trình"},
+{role:"user",content:req.body.question}
 ]
 })
-})
+});
 
-const data = await response.json()
-res.json(data)
+const data = await response.json();
+
+res.status(200).json(data);
 
 }
