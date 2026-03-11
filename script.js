@@ -35,9 +35,12 @@ const data = await response.json();
 
 console.log(data);
 
-let aiReply="AI lỗi";
+let aiReply = "AI lỗi";
 
-if(data.candidates){
+if(data.error){
+aiReply = data.error.message;
+}
+else if(data.candidates){
 aiReply = data.candidates[0].content.parts[0].text;
 }
 
