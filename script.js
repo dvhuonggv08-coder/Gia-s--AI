@@ -14,18 +14,23 @@ chatBox.innerHTML += `<p style="color:blue"><b>Bạn:</b> ${question}</p>`;
 try{
 
 const response = await fetch(
-`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+"https://api.openai.com/v1/chat/completions",
 {
 method:"POST",
 headers:{
-"Content-Type":"application/json"
+"Content-Type":"application/json",
+"Authorization":"Bearer "+apiKey
 },
 body:JSON.stringify({
-contents:[
+model:"gpt-4o-mini",
+messages:[
 {
-parts:[
-{ text: question }
-]
+role:"system",
+content:"Bạn là gia sư lập trình cho học sinh. Hãy giải thích dễ hiểu."
+},
+{
+role:"user",
+content:question
 }
 ]
 })
@@ -36,21 +41,13 @@ const data = await response.json();
 
 console.log(data);
 
-if(data.candidates){
-
-const reply = data.candidates[0].content.parts[0].text;
+const reply = data.choices[0].message.content;
 
 chatBox.innerHTML += `<p style="color:green"><b>AI:</b> ${reply}</p>`;
 
-}else{
-
-chatBox.innerHTML += `<p style="color:red">Gemini không trả dữ liệu</p>`;
-
-}
-
 }catch(err){
 
-chatBox.innerHTML += `<p style="color:red">Không kết nối được AI</p>`;
+chatBox.innerHTML += `<p style="color:red">Không kết nối được ChatGPT</p>`;
 
 }
 
