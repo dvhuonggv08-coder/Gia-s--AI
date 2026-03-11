@@ -19,7 +19,7 @@ headers:{
 "Content-Type":"application/json"
 },
 body:JSON.stringify({
-question: question
+message:userText
 })
 });
 const data = await response.json();
